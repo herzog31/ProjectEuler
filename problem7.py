@@ -9,11 +9,16 @@ def isPrime(number):
 def getPrimeAtIndex(index):
 	i = 0
 	estimate = int(index * log(index))
-	for j in xrange(2, 2*estimate):
-		if isPrime(j):
+	toCalc = range(2, 2*estimate)
+	toCalc = map(lambda x: True, toCalc)
+	for j, value in enumerate(toCalc):
+		if j < 2: continue
+		if value:
 			i += 1
+			for k in xrange(j, 2*estimate-2, j):
+				toCalc[k] = False
 		if i == index:
 			return j
 
 print(getPrimeAtIndex(10001))
-# Solution 104743 in 0m34.966s
+# Solution 104743 in 0m0.085s
